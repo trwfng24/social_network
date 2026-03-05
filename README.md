@@ -135,10 +135,6 @@ python manage.py collectstatic
 4. Push to branch (`git push origin feature/AmazingFeature`)
 5. Tạo Pull Request
 
-## 📄 License
-
-Dự án này sử dụng license MIT. Xem file `LICENSE` để biết thêm chi tiết.
-
 ## 👥 Tác giả
 
 - **Tên tác giả**: Trường Nguyễn
