@@ -138,8 +138,5 @@ python manage.py collectstatic
 ## 👥 Tác giả
 
 - **Tên tác giả**: Trường Nguyễn
-- **GitHub**: [@trwfg24](https://github.com/trwfg24)
+- **Email**: [truongnc1602@gmail.com]
 
-## 🙏 Lời cảm ơn
-
-Cảm ơn bạn đã quan tâm đến dự án này!
