@@ -379,60 +379,6 @@ def delete_comment(request, comment_id):
     )
 
 
-# @login_required
-# def findfriend(request):
-#     keyword = request.GET.get("q", "")
-#     user = request.user
-
-#     # lấy danh sách bạn bè hiện tại ngay từ đầu
-#     my_friends = set(f.id for f in user.get_friends())
-
-#     results = []
-#     if keyword:
-#         # tìm user theo tên (loại bỏ chính mình + loại bỏ bạn bè đã có)
-#         users = User.objects.filter(
-#             Q(full_name__icontains=keyword)
-#         ).exclude(id__in=my_friends | {user.id})
-
-#         # tính số bạn chung
-#         for u in users:
-#             u_friends = set(f.id for f in u.get_friends())
-#             mutual_count = len(my_friends & u_friends)
-#             results.append((u, mutual_count))
-
-#         # sắp xếp giảm dần theo mutual_count
-#         results.sort(key=lambda x: x[1], reverse=True)
-
-#     return render(request, "findfriend/findfriend.html", {"results": results, "keyword": keyword})
-
-
-# @login_required
-# def findfriend(request):
-#     keyword = request.GET.get("q", "")
-#     user = request.user
-
-#     results = []
-#     if keyword:
-#         # tìm user theo tên (loại bỏ chính mình)
-#         users = User.objects.filter(
-#             Q(full_name__icontains=keyword)
-#         ).exclude(id=user.id)
-
-#         # danh sách bạn của current user
-#         my_friends = set([f.id for f in user.get_friends()])   # <-- sửa ở đây
-
-#         # tính số bạn chung
-#         for u in users:
-#             u_friends = set([f.id for f in u.get_friends()])   # <-- sửa ở đây
-#             mutual_count = len(my_friends & u_friends)
-#             results.append((u, mutual_count))
-
-#         # sắp xếp giảm dần theo mutual_count
-#         results.sort(key=lambda x: x[1], reverse=True)
-
-#     return render(request, "findfriend/findfriend.html", {"results": results, "keyword": keyword})
-
-
 @login_required(login_url="login")
 def findfriend(request):
     keyword = request.GET.get("q", "")
@@ -494,10 +440,7 @@ def findfriend(request):
 
 @login_required
 def delete_conversation(request, conversation_id):
-    """
-    Xóa 1 conversation và toàn bộ messages liên quan.
-    Chỉ user trong cuộc trò chuyện mới có quyền xoá.
-    """
+
     conversation = get_object_or_404(Conversation, id=conversation_id)
 
     # Chỉ cho phép user1 hoặc user2 được xóa
@@ -507,5 +450,5 @@ def delete_conversation(request, conversation_id):
             status=403,
         )
 
-    conversation.delete()  # Nhờ on_delete=CASCADE → xoá hết message liên quan
+    conversation.delete()
     return JsonResponse({"success": True, "message": "Đã xoá cuộc trò chuyện."})
